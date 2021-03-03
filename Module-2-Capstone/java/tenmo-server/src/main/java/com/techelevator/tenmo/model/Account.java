@@ -18,7 +18,7 @@ public long getUser_id() {
 public void setUser_id(long user_id) {
 	this.user_id = user_id;
 }
-public double getBalance() {
+public double getAccountBalance() {
 	return balance;
 }
 public void setBalance(double balance) {

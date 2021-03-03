@@ -9,7 +9,7 @@ public interface AccountDAO {
 	
 void createAccount(Account accounts);
 
-Account getAccount(long User_id);
+double getAccountBalance(long User_id);
 
 List<Account> list();
 

@@ -1,16 +1,14 @@
 package com.techelevator.tenmo.dao;
 
 import java.util.List;
-
-import javax.sql.DataSource;
-
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
-
 import com.techelevator.tenmo.model.Account;
+
 @Component
 public class AccountDAOJDBC implements AccountDAO {
+	
 private JdbcTemplate jdbcTemplate;
 
 
@@ -24,14 +22,14 @@ public AccountDAOJDBC (JdbcTemplate jdbcTemplate) {
 		
 	}
 
-	public Account getAccount(long User_id) {
+	public double getAccountBalance(long User_id) {
 		Account anAccount = new Account();
-		String SqlGetAccountBalance = "SELECT balance from accounts WHERE user_id = ?";
+		String SqlGetAccountBalance = "SELECT * FROM accounts WHERE user_id = ?";
 		SqlRowSet accountBalance = jdbcTemplate.queryForRowSet(SqlGetAccountBalance, User_id);
 		if (accountBalance.next()) {
 			anAccount = mapRowToAccount(accountBalance);
 		}
-		return anAccount;
+		return anAccount.getAccountBalance();
 	}
 
 	public List<Account> list(){

@@ -13,11 +13,17 @@ import com.techelevator.tenmo.model.AccountUser;
 public class AccountUserDAOJDBC implements AccountUserDAO {
 	private JdbcTemplate jdbcTemplate;
 	
+	public AccountUserDAOJDBC (JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+		
+	}
+	
+	@Override
 	public List<AccountUser> listUsers(){
 		List<AccountUser> listOfUsers = new ArrayList<AccountUser>();
 		String getListOfUsers = "SELECT user_id, username FROM users";
 		SqlRowSet userList = jdbcTemplate.queryForRowSet(getListOfUsers);
-		if (userList.next()) {
+		while (userList.next()) {
 			AccountUser aUser = new AccountUser();
 			aUser = mapRowToAccountUser(userList);
 			listOfUsers.add(aUser);

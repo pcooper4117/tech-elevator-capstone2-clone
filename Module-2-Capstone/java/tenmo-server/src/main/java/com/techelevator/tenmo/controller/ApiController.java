@@ -1,6 +1,7 @@
 package com.techelevator.tenmo.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -42,8 +43,8 @@ public double getAccountBalance(Principal userInfo) {
 }
 @RequestMapping (path = "/users", method = RequestMethod.GET)
 public List<AccountUser> listUsers(){
-	List<AccountUser> theUsers;
-	theUsers = accountUserDAO.listUsers();			// Use the DAO method to retrieve all the Departments from the Department resource
+	List<AccountUser> theUsers = new ArrayList();
+	theUsers = accountUserDAO.listUsers();
 	return theUsers;
 }
 

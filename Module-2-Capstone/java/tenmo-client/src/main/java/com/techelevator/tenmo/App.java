@@ -1,5 +1,7 @@
 package com.techelevator.tenmo;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import com.techelevator.tenmo.models.AuthenticatedUser;
@@ -8,6 +10,7 @@ import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.AuthenticationServiceException;
 import com.techelevator.tenmo.services.TenmoApplicationServices;
 import com.techelevator.view.ConsoleService;
+import com.techelevator.tenmo.model.AccountUser;
 
 public class App {
 
@@ -24,6 +27,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 	private static final String MAIN_MENU_OPTION_VIEW_PENDING_REQUESTS = "View your pending requests";
 	private static final String MAIN_MENU_OPTION_LOGIN = "Login as different user";
 	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_VIEW_BALANCE, MAIN_MENU_OPTION_SEND_BUCKS, MAIN_MENU_OPTION_VIEW_PAST_TRANSFERS, MAIN_MENU_OPTION_REQUEST_BUCKS, MAIN_MENU_OPTION_VIEW_PENDING_REQUESTS, MAIN_MENU_OPTION_LOGIN, MENU_OPTION_EXIT };
+
 	
     private AuthenticatedUser currentUser;
     private ConsoleService console;
@@ -50,7 +54,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 	}
 
 	private void mainMenu() {
-		while(true) {
+		//while(true) {
 			String choice = (String)console.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 			if(MAIN_MENU_OPTION_VIEW_BALANCE.equals(choice)) {
 				viewCurrentBalance();
@@ -60,21 +64,17 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 				viewPendingRequests();
 			} else if(MAIN_MENU_OPTION_SEND_BUCKS.equals(choice)) {
 				sendBucks();
-			} else if(MAIN_MENU_OPTION_REQUEST_BUCKS.equals(choice)) {
-				requestBucks();
-			} else if(MAIN_MENU_OPTION_LOGIN.equals(choice)) {
-				login();
 			} else {
 				// the only other option on the main menu is to exit
 				exitProgram();
 			}
 		}
-	}
+	//}
 
 	private void viewCurrentBalance() {
 		// TODO Auto-generated method stub
 		double balance = applicationService.getAccountBalance(currentUser.getToken());
-		System.out.println(balance);
+		System.out.println("Your current balance is: " + balance);
 		
 		
 	}
@@ -90,6 +90,36 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 	}
 
 	private void sendBucks() {
+		
+		List<AccountUser> userList = new ArrayList();
+		
+		userList = applicationService.listUsers(currentUser.getToken());
+		
+		System.out.println(userList);
+		
+		System.out.println("-------------------------------------");
+		System.out.print("Please select the ID of the user you would like to send TE bucks to: ");
+		
+		
+		Scanner newScanner = new Scanner(System.in);
+		String userInput = newScanner.nextLine();
+		
+		if (userInput == "2") {
+			
+			System.out.println("Please enter how much would you like to send: $");
+			userInput = newScanner.nextLine();
+			
+			double amount = Double.parseDouble(userInput);
+			
+			
+			
+			
+			
+		}
+		
+		
+	
+		
 		// TODO Auto-generated method stub
 		
 //		System.out.println("Choose which User you would like to send TE bucks to");
@@ -130,6 +160,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 			}
 		}
 	}
+	
 
 	private boolean isAuthenticated() {
 		return currentUser != null;

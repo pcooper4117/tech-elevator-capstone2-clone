@@ -40,6 +40,7 @@ public class UserSqlDAO implements UserDAO {
 
         return users;
     }
+    
 
     @Override
     public User findByUsername(String username) throws UsernameNotFoundException {
@@ -87,4 +88,5 @@ public class UserSqlDAO implements UserDAO {
         user.setAuthorities("ROLE_USER");
         return user;
     }
+    
 }

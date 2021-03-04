@@ -1,5 +1,7 @@
 package com.techelevator.tenmo.services;
 import com.techelevator.tenmo.model.Account;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpEntity;
@@ -28,9 +30,14 @@ public class TenmoApplicationServices {
 		return accountBalance;
 	}
 	
-	public List<Account> getAccountList(){
-		
-	}
+//	public List<Account> getAccountList(){
+//		List<Account> listOfAccounts = new ArrayList<Account>();
+//		
+//		listOfAccounts = restTemplate.exchange(API_BASE_URL + "/accounts", HttpMethod.GET, makeAuthEntity(), List.class).getBody();
+//		
+//		return listOfAccounts;
+//		
+//	}
 	
 	  private HttpEntity makeAuthEntity(String authToken) {
 		    HttpHeaders headers = new HttpHeaders();						// Instantiate a header object for request

@@ -35,7 +35,7 @@ public AccountDAOJDBC (JdbcTemplate jdbcTemplate) {
 
 	public List<Account> list(){
 		List<Account> listOfAccounts = new ArrayList<Account>();
-		String getListOfAccounts = "SELECT user_id, username FROM users";
+		String getListOfAccounts = "SELECT * FROM users";
 		SqlRowSet accountList = jdbcTemplate.queryForRowSet(getListOfAccounts);
 		if (accountList.next()) {
 			Account account = new Account();
@@ -64,6 +64,7 @@ public AccountDAOJDBC (JdbcTemplate jdbcTemplate) {
 		theAccount.setBalance(results.getDouble("balance"));
 		return theAccount;
 	}
+	
 	
 	private long getNextAccountId() {
 		SqlRowSet nextIdResult = jdbcTemplate.queryForRowSet("SELECT nextval('seq_account_id')");

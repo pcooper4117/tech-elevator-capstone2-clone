@@ -3,7 +3,7 @@ package com.techelevator.tenmo.controller;
 import java.security.Principal;
 import java.util.List;
 
-import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.techelevator.tenmo.dao.AccountDAO;
 import com.techelevator.tenmo.dao.AccountDAOJDBC;
+import com.techelevator.tenmo.dao.AccountUserDAO;
 import com.techelevator.tenmo.dao.UserDAO;
-import com.techelevator.tenmo.model.Account;
+import com.techelevator.tenmo.model.AccountUser;
+import com.techelevator.tenmo.model.User;
 
 /*******************************************************************************************************
  * This is where you code any API controllers you may create
@@ -22,10 +24,13 @@ public class ApiController {
 	
 private AccountDAO accountDAO;
 private UserDAO userDAO;
+private AccountUserDAO accountUserDAO;
 
-public ApiController(AccountDAOJDBC accountDAO, UserDAO userDAO) {
+
+public ApiController(AccountDAOJDBC accountDAO, UserDAO userDAO, AccountUserDAO accountUserDAO) {
 	this.accountDAO = accountDAO;
 	this.userDAO = userDAO;
+	this.accountUserDAO = accountUserDAO;
 	
 }
 
@@ -35,9 +40,11 @@ public double getAccountBalance(Principal userInfo) {
     return accountDAO.getAccountBalance(userId);
     	
 }
-@RequestMapping (path = "/accounts", method = RequestMethod.GET)
-public List<Account> getAccountList(){
-	return accountDAO.list();
+@RequestMapping (path = "/users", method = RequestMethod.GET)
+public List<AccountUser> listUsers(){
+	List<AccountUser> theUsers;
+	theUsers = accountUserDAO.listUsers();			// Use the DAO method to retrieve all the Departments from the Department resource
+	return theUsers;
 }
 
 

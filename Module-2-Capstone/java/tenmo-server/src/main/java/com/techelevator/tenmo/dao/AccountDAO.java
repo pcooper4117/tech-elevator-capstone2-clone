@@ -13,7 +13,7 @@ double getAccountBalance(long User_id);
 
 List<Account> list();
 
-Account updateAccount(Account accounts, long User_id);
+void updateAccount(long transferTo, long transferFrom, double amount);
 
 void deleteAccount (long User_id);
 }

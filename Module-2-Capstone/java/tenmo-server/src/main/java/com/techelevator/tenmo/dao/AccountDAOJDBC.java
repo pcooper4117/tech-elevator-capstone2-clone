@@ -46,8 +46,20 @@ public AccountDAOJDBC (JdbcTemplate jdbcTemplate) {
 		
 	}
 
-	public Account updateAccount(Account accounts, long User_id) {
-		return accounts;
+	public void updateAccount(long transferTo, long transferFrom, double amount) {
+		String SqlUpdateTransfers = "UPDATE transfers SET transferTo = ?, SET transferFrom = ?, SET amount = ?";
+		jdbcTemplate.update(SqlUpdateTransfers,transferTo,transferFrom,amount);
+		
+		
+	
+		String SqlUpdateFromAccount = "UPDATE accounts SET balance = balance - ?, WHERE account_id = ?";
+		jdbcTemplate.update(SqlUpdateFromAccount, amount, transferFrom);
+		
+		
+		String SqlUpdateToAccount = "UPDATE accounts SET balance = balance + ?, WHERE account_id = ?";
+		jdbcTemplate.update(SqlUpdateToAccount, amount, transferTo);
+		
+		
 		
 	}
 

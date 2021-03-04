@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.techelevator.tenmo.models.AuthenticatedUser;
+import com.techelevator.tenmo.models.Transfer;
 import com.techelevator.tenmo.models.UserCredentials;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.AuthenticationServiceException;
@@ -104,19 +105,25 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 		Scanner newScanner = new Scanner(System.in);
 		String userInput = newScanner.nextLine();
 		
-		if (userInput == "2") {
-			
-			System.out.println("Please enter how much would you like to send: $");
-			userInput = newScanner.nextLine();
-			
+		
+		Long accountTo = 0L;
+		
+		Transfer aTransfer = new Transfer();
+		accountTo = Long.parseLong(userInput);
+		aTransfer.setTransfer_to(accountTo);
+		aTransfer.setTransfer_from(userList.get(0).getUser_id());
+		
+		System.out.println("Please enter how much would you like to send: $");
+		userInput = newScanner.nextLine();
 			double amount = Double.parseDouble(userInput);
+			aTransfer.setAmount(amount);
 			
 			
 			
 			
 			
 		}
-		
+	
 		
 	
 		
@@ -136,7 +143,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 //		else if (userInput == 2) {
 //			do
 //		}
-	}
+	
 
 	private void requestBucks() {
 		// TODO Auto-generated method stub

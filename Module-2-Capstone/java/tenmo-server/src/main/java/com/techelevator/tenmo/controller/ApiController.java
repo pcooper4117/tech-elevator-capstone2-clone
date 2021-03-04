@@ -52,9 +52,9 @@ public List<AccountUser> listUsers(){
 
 @RequestMapping (path = "/transfer", method = RequestMethod.PUT)
 public Transfer update(@RequestBody Transfer aTransfer) {
-	long transferTo = transferDAO.;
-	long transferFrom;
-	double amount;
+	long transferTo = transferDAO.getAccountTo();
+	long transferFrom = transferDAO.getAccountFrom();
+	double amount = transferDAO.getAmount();
 	return accountDAO.updateAccount(transferTo, transferFrom, amount);
 	
 }

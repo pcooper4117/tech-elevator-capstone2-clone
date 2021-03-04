@@ -45,5 +45,5 @@ public class TenmoApplicationServices {
 		    HttpEntity entity = new HttpEntity<>(headers);					// Create a properly formatted request by instantiating an entity
 		    return entity;
 		  }
-
+	  //TO DO : add second helper method to add to the body add the transfer object into the body also including everything in makeAuthEntity()
 }

@@ -47,16 +47,16 @@ public AccountDAOJDBC (JdbcTemplate jdbcTemplate) {
 	}
 
 	public void updateAccount(long transferTo, long transferFrom, double amount) {
-		String SqlUpdateTransfers = "UPDATE transfers SET transferTo = ?, SET transferFrom = ?, SET amount = ?";
+		String SqlUpdateTransfers = "INSERT INTO transfers (transfer_status_id, transfer_type_id, account_to, account_from, amount) VALUES(2, 2, ?, ?, ?)";
 		jdbcTemplate.update(SqlUpdateTransfers,transferTo,transferFrom,amount);
 		
 		
 	
-		String SqlUpdateFromAccount = "UPDATE accounts SET balance = balance - ?, WHERE account_id = ?";
+		String SqlUpdateFromAccount = "UPDATE accounts SET balance = balance - ? WHERE account_id = ?";
 		jdbcTemplate.update(SqlUpdateFromAccount, amount, transferFrom);
 		
 		
-		String SqlUpdateToAccount = "UPDATE accounts SET balance = balance + ?, WHERE account_id = ?";
+		String SqlUpdateToAccount = "UPDATE accounts SET balance = balance + ? WHERE account_id = ?";
 		jdbcTemplate.update(SqlUpdateToAccount, amount, transferTo);
 		
 		

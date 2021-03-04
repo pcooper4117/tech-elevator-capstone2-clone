@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.techelevator.tenmo.dao.AccountDAO;
 import com.techelevator.tenmo.dao.AccountDAOJDBC;
 import com.techelevator.tenmo.dao.AccountUserDAO;
-import com.techelevator.tenmo.dao.TransferDAO;
 import com.techelevator.tenmo.dao.UserDAO;
 import com.techelevator.tenmo.model.AccountUser;
 import com.techelevator.tenmo.model.Transfer;
@@ -28,13 +27,13 @@ public class ApiController {
 private AccountDAO accountDAO;
 private UserDAO userDAO;
 private AccountUserDAO accountUserDAO;
-private TransferDAO transferDAO;
 
-public ApiController(AccountDAOJDBC accountDAO, UserDAO userDAO, AccountUserDAO accountUserDAO, TransferDAO transferDAO) {
+
+public ApiController(AccountDAOJDBC accountDAO, UserDAO userDAO, AccountUserDAO accountUserDAO) {
 	this.accountDAO = accountDAO;
 	this.userDAO = userDAO;
 	this.accountUserDAO = accountUserDAO;
-	this.transferDAO = transferDAO;
+
 }
 
 @RequestMapping(path = "/account/balance", method = RequestMethod.GET)
@@ -50,12 +49,10 @@ public List<AccountUser> listUsers(){
 	return theUsers;
 }
 
-@RequestMapping (path = "/transfer", method = RequestMethod.PUT)
-public Transfer update(@RequestBody Transfer aTransfer) {
-	long transferTo = transferDAO.getAccountTo();
-	long transferFrom = transferDAO.getAccountFrom();
-	double amount = transferDAO.getAmount();
-	return accountDAO.updateAccount(transferTo, transferFrom, amount);
+@RequestMapping (path = "/transfer", method = RequestMethod.POST)
+public void update(@RequestBody Transfer aTransfer) {
+	
+	 accountDAO.updateAccount(aTransfer.getAccount_to(), aTransfer.getAccount_from(), aTransfer.getAmount());
 	
 }
 

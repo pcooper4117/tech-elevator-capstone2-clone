@@ -1,4 +1,6 @@
 package com.techelevator.tenmo.services;
+import com.techelevator.tenmo.model.Account;
+import java.util.List;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -26,6 +28,9 @@ public class TenmoApplicationServices {
 		return accountBalance;
 	}
 	
+	public List<Account> getAccountList(){
+		
+	}
 	
 	  private HttpEntity makeAuthEntity(String authToken) {
 		    HttpHeaders headers = new HttpHeaders();						// Instantiate a header object for request

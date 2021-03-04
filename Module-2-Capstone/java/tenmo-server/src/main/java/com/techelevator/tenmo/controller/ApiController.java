@@ -1,6 +1,7 @@
 package com.techelevator.tenmo.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,4 +35,10 @@ public double getAccountBalance(Principal userInfo) {
     return accountDAO.getAccountBalance(userId);
     	
 }
+@RequestMapping (path = "/accounts", method = RequestMethod.GET)
+public List<Account> getAccountList(){
+	return accountDAO.list();
+}
+
+
 }

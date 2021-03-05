@@ -35,7 +35,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
     private AuthenticationService authenticationService;
     private TenmoApplicationServices applicationService = new TenmoApplicationServices();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
     	App app = new App(new ConsoleService(System.in, System.out), new AuthenticationService(API_BASE_URL));
     	app.run();
     }
@@ -45,7 +45,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 		this.authenticationService = authenticationService;
 	}
 
-	public void run() {
+	public void run() throws Exception {
 		System.out.println("*********************");
 		System.out.println("* Welcome to TEnmo! *");
 		System.out.println("*********************");
@@ -54,7 +54,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 		mainMenu();
 	}
 
-	private void mainMenu() {
+	private void mainMenu() throws Exception {
 		//while(true) {
 			String choice = (String)console.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 			if(MAIN_MENU_OPTION_VIEW_BALANCE.equals(choice)) {
@@ -90,7 +90,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 		
 	}
 
-	private void sendBucks() {
+	private void sendBucks() throws Exception {
 		
 		List<AccountUser> userList = new ArrayList();
 		
@@ -111,13 +111,16 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 		Transfer aTransfer = new Transfer();
 		accountTo = Long.parseLong(userInput);
 		aTransfer.setTransfer_to(accountTo);
-		aTransfer.setTransfer_from(userList.get(0).getUser_id());
-		
-		System.out.println("Please enter how much would you like to send: $");
+
+	
+		System.out.print("Please enter how much would you like to send: $");
 		userInput = newScanner.nextLine();
 			double amount = Double.parseDouble(userInput);
-			aTransfer.setAmount(amount);
-			
+		aTransfer.setAmount(amount);
+	
+		
+		 applicationService.makeTransfer(currentUser.getToken(),aTransfer);
+			System.out.println("Transfer completed succesfully!");
 			
 			
 			

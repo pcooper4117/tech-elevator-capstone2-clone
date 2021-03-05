@@ -46,10 +46,13 @@ public AccountDAOJDBC (JdbcTemplate jdbcTemplate) {
 		
 	}
 
-	public void updateAccount(long transferTo, long transferFrom, double amount) {
+	public void updateAccount(long transferTo, long transferFrom, double amount) throws Exception {
 		String SqlUpdateTransfers = "INSERT INTO transfers (transfer_status_id, transfer_type_id, account_to, account_from, amount) VALUES(2, 2, ?, ?, ?)";
+		if (amount > getAccountBalance(transferFrom)) {
+			throw new Exception("You cannot transfer more money than you have!");
+		} else
+		{ 
 		jdbcTemplate.update(SqlUpdateTransfers,transferTo,transferFrom,amount);
-		
 		
 	
 		String SqlUpdateFromAccount = "UPDATE accounts SET balance = balance - ? WHERE account_id = ?";
@@ -59,7 +62,7 @@ public AccountDAOJDBC (JdbcTemplate jdbcTemplate) {
 		String SqlUpdateToAccount = "UPDATE accounts SET balance = balance + ? WHERE account_id = ?";
 		jdbcTemplate.update(SqlUpdateToAccount, amount, transferTo);
 		
-		
+		}
 		
 	}
 

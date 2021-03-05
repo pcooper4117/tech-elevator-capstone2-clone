@@ -50,9 +50,9 @@ public List<AccountUser> listUsers(){
 }
 
 @RequestMapping (path = "/transfer", method = RequestMethod.POST)
-public void update(@RequestBody Transfer aTransfer) {
-	
-	 accountDAO.updateAccount(aTransfer.getAccount_to(), aTransfer.getAccount_from(), aTransfer.getAmount());
+public void update(Principal userInfo, @RequestBody Transfer aTransfer) throws Exception {
+	long transferFrom = userDAO.findIdByUsername(userInfo.getName());
+	 accountDAO.updateAccount(aTransfer.getTransfer_to(), transferFrom, aTransfer.getAmount());
 	
 }
 

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.techelevator.tenmo.dao.AccountDAO;
 import com.techelevator.tenmo.dao.AccountDAOJDBC;
 import com.techelevator.tenmo.dao.AccountUserDAO;
+import com.techelevator.tenmo.dao.TransferDAO;
 import com.techelevator.tenmo.dao.UserDAO;
 import com.techelevator.tenmo.model.AccountUser;
 import com.techelevator.tenmo.model.Transfer;
@@ -27,12 +28,14 @@ public class ApiController {
 private AccountDAO accountDAO;
 private UserDAO userDAO;
 private AccountUserDAO accountUserDAO;
+private TransferDAO transferDAO;
 
 
-public ApiController(AccountDAOJDBC accountDAO, UserDAO userDAO, AccountUserDAO accountUserDAO) {
+public ApiController(AccountDAOJDBC accountDAO, UserDAO userDAO, AccountUserDAO accountUserDAO, TransferDAO transferDAO) {
 	this.accountDAO = accountDAO;
 	this.userDAO = userDAO;
 	this.accountUserDAO = accountUserDAO;
+	this.transferDAO = transferDAO;
 
 }
 
@@ -54,6 +57,11 @@ public void update(Principal userInfo, @RequestBody Transfer aTransfer) throws E
 	long transferFrom = userDAO.findIdByUsername(userInfo.getName());
 	 accountDAO.updateAccount(aTransfer.getTransfer_to(), transferFrom, aTransfer.getAmount());
 	
+}
+@RequestMapping (path = "/transfer/list", method = RequestMethod.GET)
+public List<Transfer> getAllTransfers(){
+	List<Transfer> results = transferDAO.getAllTransfers();
+	return results;
 }
 
 }

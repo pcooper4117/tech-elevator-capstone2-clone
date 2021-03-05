@@ -1,5 +1,5 @@
 package com.techelevator.tenmo.services;
-import com.techelevator.tenmo.model.AccountUser;
+import com.techelevator.tenmo.models.AccountUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,10 +56,20 @@ public class TenmoApplicationServices {
 		} catch(Exception Ex) {
 			throw new Exception("You cannot transfer more money than you have!");
 		}
+	}
+	
+		public Transfer[] listTransfers (String authToken) {
+			Transfer[] transfers;
+			
+			transfers = restTemplate.exchange(API_BASE_URL + "/transfer/list", HttpMethod.GET, makeAuthEntity(authToken), Transfer[].class).getBody();
+			
+			return transfers;
+			
+		}
 		
 		
 	
-	}
+	
 	  private HttpEntity makeAuthEntity(String authToken) {
 		    HttpHeaders headers = new HttpHeaders();						// Instantiate a header object for request
 		    headers.setBearerAuth(authToken);								// Set the "bearer" attribute in the header to the JWT																// the "bearer" attribute in a request header holds JWT
@@ -74,5 +84,4 @@ public class TenmoApplicationServices {
 	        return entity;
 	        
 	    }
-	  //TO DO : add second helper method to add to the body add the transfer object into the body also including everything in makeAuthEntity()
 }

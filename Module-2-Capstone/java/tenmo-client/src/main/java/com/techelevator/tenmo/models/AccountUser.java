@@ -1,4 +1,4 @@
-package com.techelevator.tenmo.model;
+package com.techelevator.tenmo.models;
 
 public class AccountUser {
 	private long user_id;
@@ -17,10 +17,11 @@ public class AccountUser {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
 	@Override
 	public String toString() {
-		return "User ID: " + user_id + ", username: " + username;
+		// TODO Auto-generated method stub
+		return "UserID: " + getUser_id() + " Username: " + getUsername();
 	}
 	
+
 }

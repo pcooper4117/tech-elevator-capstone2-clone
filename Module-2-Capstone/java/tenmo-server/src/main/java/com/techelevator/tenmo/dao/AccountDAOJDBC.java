@@ -34,15 +34,7 @@ public AccountDAOJDBC (JdbcTemplate jdbcTemplate) {
 	}
 
 	public List<Account> list(){
-		List<Account> listOfAccounts = new ArrayList<Account>();
-		String getListOfAccounts = "SELECT * FROM users";
-		SqlRowSet accountList = jdbcTemplate.queryForRowSet(getListOfAccounts);
-		if (accountList.next()) {
-			Account account = new Account();
-			account = mapRowToAccount(accountList);
-			listOfAccounts.add(account);
-			}
-		return listOfAccounts;
+		return null;
 		
 	}
 

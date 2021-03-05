@@ -11,7 +11,7 @@ import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.AuthenticationServiceException;
 import com.techelevator.tenmo.services.TenmoApplicationServices;
 import com.techelevator.view.ConsoleService;
-import com.techelevator.tenmo.model.AccountUser;
+import com.techelevator.tenmo.models.AccountUser;
 
 public class App {
 
@@ -81,7 +81,10 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 	}
 
 	private void viewTransferHistory() {
-		// TODO Auto-generated method stub
+		Transfer [] transfers = applicationService.listTransfers(currentUser.getToken());
+		for (Transfer theTransfers : transfers) {
+			System.out.println(theTransfers.toString());
+		}
 		
 	}
 
@@ -92,11 +95,14 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 
 	private void sendBucks() throws Exception {
 		
-		List<AccountUser> userList = new ArrayList();
+		List<AccountUser> userList = new ArrayList<AccountUser>();
 		
 		userList = applicationService.listUsers(currentUser.getToken());
 		
-		System.out.println(userList);
+		for(int i=0; i < userList.size(); i++) {
+			System.out.println(userList.get(i));
+		}
+		
 		
 		System.out.println("-------------------------------------");
 		System.out.print("Please select the ID of the user you would like to send TE bucks to: ");

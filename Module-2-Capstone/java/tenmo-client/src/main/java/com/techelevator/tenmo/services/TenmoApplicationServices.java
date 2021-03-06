@@ -66,7 +66,13 @@ public class TenmoApplicationServices {
 			return transfers;
 			
 		}
-		
+		public Transfer getTransferById (String authToken, long id) {
+			Transfer transfers =  new Transfer();
+			transfers = restTemplate.exchange(API_BASE_URL + "/transfer/" + id, HttpMethod.GET, makeAuthEntity(authToken), Transfer.class).getBody();
+			
+			return transfers;
+			
+		}
 		
 	
 	
@@ -84,4 +90,14 @@ public class TenmoApplicationServices {
 	        return entity;
 	        
 	    }
+	  
+//	  private HttpEntity<Transfer> makeTransferIdEntity(Long id, String authToken) {
+//	        HttpHeaders headers = new HttpHeaders();
+//	        headers.setContentType(MediaType.APPLICATION_JSON);
+//	        headers.setBearerAuth(authToken);
+//	        HttpEntity<Transfer> entity = new HttpEntity<>(id, headers);
+//	        return entity;
+//	        
+	    
+	  
 }

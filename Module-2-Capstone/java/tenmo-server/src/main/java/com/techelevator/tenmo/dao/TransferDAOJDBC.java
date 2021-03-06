@@ -51,6 +51,17 @@ public class TransferDAOJDBC implements TransferDAO {
 		return listOfTransfers;
 	}
 	
+	public Transfer getTransferById(long id) {
+		Transfer aTransfer = new Transfer();
+		String sqlGetTransferById = "SELECT * FROM transfers WHERE transfer_id = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetTransferById, id);
+		if (results.next()) {
+			Transfer theTransfer = mapRowToTransfer(results);
+			aTransfer =  theTransfer;
+			}
+		return aTransfer;
+		
+	}
 	private Transfer mapRowToTransfer(SqlRowSet results) {
 		Transfer theTransfer;
 		theTransfer =  new Transfer();
@@ -62,4 +73,6 @@ public class TransferDAOJDBC implements TransferDAO {
 		theTransfer.setAmount(results.getDouble("amount"));
 		return theTransfer;
 	}
+
+	
 }

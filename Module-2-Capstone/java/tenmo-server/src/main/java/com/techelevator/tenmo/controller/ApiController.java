@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -62,6 +63,13 @@ public void update(Principal userInfo, @RequestBody Transfer aTransfer) throws E
 public List<Transfer> getAllTransfers(){
 	List<Transfer> results = transferDAO.getAllTransfers();
 	return results;
+}
+
+@RequestMapping (path = "/transfer/{id}", method = RequestMethod.GET)
+public Transfer getTransferById(@PathVariable long id) {
+	Transfer aTransfer = new Transfer();
+	aTransfer = transferDAO.getTransferById(id);
+			return aTransfer;
 }
 
 }

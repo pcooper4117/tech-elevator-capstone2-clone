@@ -9,5 +9,5 @@ public interface TransferDAO {
 //	void makeTransfer(long transferTo, long transferFrom, double amount) throws Exception;
 	
 	List<Transfer> getAllTransfers();
-
+		Transfer getTransferById(long id);
 }

@@ -81,11 +81,24 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 	}
 
 	private void viewTransferHistory() {
-		Transfer [] transfers = applicationService.listTransfers(currentUser.getToken());
-		for (Transfer theTransfers : transfers) {
-			System.out.println(theTransfers.toString());
+		System.out.println("Press 1 to veiw of all your transfers or press 2 to view a specific transfer");
+		Scanner newScanner = new Scanner(System.in);
+		String userInput = newScanner.nextLine();
+		if(userInput.equals("1")) {
+			Transfer [] transfers = applicationService.listTransfers(currentUser.getToken());
+			for (Transfer theTransfers : transfers) {
+				System.out.println(theTransfers.toString());
+			}
+		}else {
+			System.out.println("Enter the Id of the transfer you would like to see");
+			Scanner newScanner2 = new Scanner(System.in);
+			String userInput2 = newScanner2.nextLine();
+			long Id = Long.parseLong(userInput2);
+			Transfer aTransfer = new Transfer();
+			aTransfer = applicationService.getTransferById(currentUser.getToken(), Id);
+			System.out.println(aTransfer.toString());
 		}
-		
+
 	}
 
 	private void viewPendingRequests() {

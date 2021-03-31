@@ -24,8 +24,11 @@ import com.techelevator.tenmo.model.User;
  * This is where you code any API controllers you may create
 ********************************************************************************************************/
 @RestController 
+
+//This is where I need the most help understanding what is going on
+// I understand conceptually that the Controller is what calls our DAO methods and interacts with the data
 public class ApiController {
-	
+
 private AccountDAO accountDAO;
 private UserDAO userDAO;
 private AccountUserDAO accountUserDAO;
@@ -41,11 +44,12 @@ public ApiController(AccountDAOJDBC accountDAO, UserDAO userDAO, AccountUserDAO 
 }
 
 @RequestMapping(path = "/account/balance", method = RequestMethod.GET)
-public double getAccountBalance(Principal userInfo) {
-	long userId = userDAO.findIdByUsername(userInfo.getName());
+public double getAccountBalance(Principal userInfo) {				//Why use principal here?
+	long userId = userDAO.findIdByUsername(userInfo.getName());		// I understand the use of principal allowed us to get the ID but where does getName come from?
     return accountDAO.getAccountBalance(userId);
     	
 }
+
 @RequestMapping (path = "/users", method = RequestMethod.GET)
 public List<AccountUser> listUsers(){
 	List<AccountUser> theUsers = new ArrayList();
@@ -56,7 +60,7 @@ public List<AccountUser> listUsers(){
 @RequestMapping (path = "/transfer", method = RequestMethod.POST)
 public void update(Principal userInfo, @RequestBody Transfer aTransfer) throws Exception {
 	long transferFrom = userDAO.findIdByUsername(userInfo.getName());
-	 accountDAO.updateAccount(aTransfer.getTransfer_to(), transferFrom, aTransfer.getAmount());
+	 transferDAO.makeTransfer(aTransfer.getTransfer_to(), transferFrom, aTransfer.getAmount());
 	
 }
 @RequestMapping (path = "/transfer/list", method = RequestMethod.GET)

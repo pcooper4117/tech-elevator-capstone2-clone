@@ -1,12 +1,14 @@
 package com.techelevator.tenmo.models;
 
 public class Transfer {
+	
 private long transfer_id;
 private long transfer_type_id;
 private long transfer_status_id;
 private long transfer_from;
 private long transfer_to;
 private double amount;
+
 public long getTransfer_id() {
 	return transfer_id;
 }

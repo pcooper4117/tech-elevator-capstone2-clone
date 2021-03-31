@@ -5,15 +5,17 @@ import java.util.List;
 import com.techelevator.tenmo.model.Account;
 
 public interface AccountDAO {
-	
-	
-void createAccount(Account accounts);
 
-double getAccountBalance(long User_id);
+	//this method is not used
+	//void createAccount(Account accounts);
 
-List<Account> list();
+	double getAccountBalance(long User_id);
 
-void updateAccount(long transferTo, long transferFrom, double amount) throws Exception;
+	// This method is not used
+	//List<Account> list();
 
-void deleteAccount (long User_id);
+	void updateAccount(long transferTo, long transferFrom, double amount) throws Exception;
+
+	// This method is not used
+	//void deleteAccount (long User_id);
 }

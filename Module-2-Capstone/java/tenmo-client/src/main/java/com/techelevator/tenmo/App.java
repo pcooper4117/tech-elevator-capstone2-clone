@@ -55,7 +55,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 	}
 
 	private void mainMenu() throws Exception {
-		//while(true) {
+		while(true) {
 			String choice = (String)console.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 			if(MAIN_MENU_OPTION_VIEW_BALANCE.equals(choice)) {
 				viewCurrentBalance();
@@ -70,7 +70,8 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 				exitProgram();
 			}
 		}
-	//}
+	}
+	
 
 	private void viewCurrentBalance() {
 		// TODO Auto-generated method stub
@@ -173,7 +174,9 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 	}
 	
 	private void exitProgram() {
+		System.out.println("Thank you for using Tenmo!");
 		System.exit(0);
+		
 	}
 
 	private void registerAndLogin() {

@@ -25,8 +25,7 @@ import com.techelevator.tenmo.model.User;
 ********************************************************************************************************/
 @RestController 
 
-//This is where I need the most help understanding what is going on
-// I understand conceptually that the Controller is what calls our DAO methods and interacts with the data
+
 public class ApiController {
 
 private AccountDAO accountDAO;
@@ -44,7 +43,7 @@ public ApiController(AccountDAOJDBC accountDAO, UserDAO userDAO, AccountUserDAO 
 }
 
 @RequestMapping(path = "/account/balance", method = RequestMethod.GET)
-public double getAccountBalance(Principal userInfo) {				//Why use principal here?
+public double getAccountBalance(Principal userInfo) {				// Principal is a Spring boot security feature that contains the user information
 	long userId = userDAO.findIdByUsername(userInfo.getName());		// I understand the use of principal allowed us to get the ID but where does getName come from?
     return accountDAO.getAccountBalance(userId);
     	
@@ -58,7 +57,7 @@ public List<AccountUser> listUsers(){
 }
 
 @RequestMapping (path = "/transfer", method = RequestMethod.POST)
-public void update(Principal userInfo, @RequestBody Transfer aTransfer) throws Exception {
+public void update(Principal userInfo, @RequestBody Transfer aTransfer) throws Exception {	// @RequestBody takes data out of the request body and makes a transfer object
 	long transferFrom = userDAO.findIdByUsername(userInfo.getName());
 	 transferDAO.makeTransfer(aTransfer.getTransfer_to(), transferFrom, aTransfer.getAmount());
 	
@@ -70,7 +69,7 @@ public List<Transfer> getAllTransfers(){
 }
 
 @RequestMapping (path = "/transfer/{id}", method = RequestMethod.GET)
-public Transfer getTransferById(@PathVariable long id) {
+public Transfer getTransferById(@PathVariable long id) {				// Id is passed as part of the path
 	Transfer aTransfer = new Transfer();
 	aTransfer = transferDAO.getTransferById(id);
 			return aTransfer;

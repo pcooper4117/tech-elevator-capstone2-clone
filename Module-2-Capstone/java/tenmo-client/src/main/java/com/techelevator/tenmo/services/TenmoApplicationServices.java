@@ -25,7 +25,6 @@ import com.techelevator.tenmo.models.AuthenticatedUser;
 public class TenmoApplicationServices {
 	private final RestTemplate restTemplate = new RestTemplate();
 	private static final String API_BASE_URL = "http://localhost:8080/";
-	private AuthenticatedUser currentUser;
 
 
 
@@ -37,8 +36,9 @@ public class TenmoApplicationServices {
 		return accountBalance;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<AccountUser> listUsers(String authToken) {
-		List<AccountUser> theUsers = new ArrayList();
+		List<AccountUser> theUsers = new ArrayList<AccountUser>();
 		
 		theUsers = restTemplate.exchange(API_BASE_URL + "/users", HttpMethod.GET, makeAuthEntity(authToken), List.class).getBody();
 		
@@ -46,16 +46,9 @@ public class TenmoApplicationServices {
 		
 	}
 	public void makeTransfer(String authToken, Transfer aTransfer) throws Exception {
-		aTransfer.getAmount();
-		aTransfer.getTransfer_to();
-		aTransfer.getTransfer_from();
-		aTransfer.getTransfer_status_id();
-		aTransfer.getTransfer_type_id();
-		try { 
+	
 	 restTemplate.exchange(API_BASE_URL + "/transfer", HttpMethod.POST, makeTransferEntity(aTransfer, authToken), Transfer.class);
-		} catch(Exception Ex) {
-			throw new Exception("You cannot transfer more money than you have!");
-		}
+	
 	}
 	
 		public Transfer[] listTransfers (String authToken) {
@@ -89,15 +82,6 @@ public class TenmoApplicationServices {
 	        HttpEntity<Transfer> entity = new HttpEntity<>(transfer, headers);
 	        return entity;
 	        
-	    }
-	  
-//	  private HttpEntity<Transfer> makeTransferIdEntity(Long id, String authToken) {
-//	        HttpHeaders headers = new HttpHeaders();
-//	        headers.setContentType(MediaType.APPLICATION_JSON);
-//	        headers.setBearerAuth(authToken);
-//	        HttpEntity<Transfer> entity = new HttpEntity<>(id, headers);
-//	        return entity;
-//	        
-	    
+	    }	    
 	  
 }
